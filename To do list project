@@ -1,0 +1,79 @@
+#it is a to do list project using GUI in python Tkinter library is used
+from tkinter import *
+from tkinter import messagebox
+
+def newTask():
+    task = my_entry.get()
+    if task != "":
+        lb.insert(END, task)
+        my_entry.delete(0,"end")
+    else:
+        messagebox.showwarning("Error", "Please enter something")
+def deleteTask():
+    lb.delete(ANCHOR)
+ws = Tk()
+ws.geometry('500x450+500+200')
+ws.title('To Do List')
+ws.config(bg="gray")
+frame = Frame(ws)
+frame.pack(pady=10)
+
+lb = Listbox(
+    frame,
+    width=25,
+    height=8,
+    font=('Arial', 20),
+    bd=0,
+    fg='black',
+    highlightthickness=-10,
+    selectbackground='green',
+    activestyle="none",
+    
+)
+lb.pack(side=LEFT, fill=BOTH)
+
+task_list = ["Study DSA and DP","Practice","Eat","Cook"]
+
+for i in task_list:
+    lb.insert(END, i)
+
+sb = Scrollbar(frame)
+sb.pack(side=RIGHT,fill=BOTH)
+
+lb.config(yscrollcommand=sb.set)
+sb.config(command=lb.yview)
+
+my_entry = Entry(
+    ws,
+    font=('times', 24)
+    )
+
+my_entry.pack(pady=20)
+
+button_frame = Frame(ws)
+button_frame.pack(pady=20)
+
+addTask_btn = Button(
+    button_frame,
+    text='Add Task',
+    font=('Arial',20),
+    bg='#c5f776',
+    padx=20,
+    pady=10,
+    command=newTask
+)
+addTask_btn.pack(fill=BOTH, expand=True, side=LEFT)
+
+delTask_btn = Button(
+    button_frame,
+    text='Delete Task',
+    font=('Arial',20),
+    bg='#ff8b61',
+    padx=20,
+    pady=10,
+    command=deleteTask
+)
+delTask_btn.pack(fill=BOTH, side=LEFT)
+
+
+ws.mainloop()
